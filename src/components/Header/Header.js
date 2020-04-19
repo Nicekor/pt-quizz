@@ -5,10 +5,10 @@ import classes from './header.module.css';
 
 const Header = () => {
   return (
-    <header className={classes.headerContainer}>
+    <div className={classes.headerContainer}>
       <img src={logo} alt="Megaphone logo" className={classes.logo}></img>
       <h1>Quizz Time!</h1>
-    </header>
+    </div>
   );
 };
 
