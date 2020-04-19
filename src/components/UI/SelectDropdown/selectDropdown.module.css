@@ -1,0 +1,33 @@
+.wrapper {
+  position: relative;
+}
+
+.select {
+  /* removing default appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* custom styling */
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: rgb(32, 52, 73);
+  border: none;
+  border-bottom: 2px solid rgb(51, 114, 231);
+  color: white;
+  padding: 1em;
+  margin-left: 0.5em;
+}
+
+.select:hover,
+.select:focus {
+  background-color: rgb(43, 75, 110);
+  border-bottom-color: #dcdcdc;
+}
+
+.selectIcon {
+  position: absolute;
+  right: 5%;
+  top: 20%;
+  pointer-events: none;
+}
