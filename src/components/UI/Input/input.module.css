@@ -1,0 +1,69 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.inputContainer {
+  cursor: pointer;
+  border-radius: 8px;
+  background-color: rgb(32, 52, 73);
+  border-bottom: 2px solid rgb(51, 114, 231);
+  margin-left: 0.5em;
+  position: relative;
+}
+
+.inputContainer:hover,
+.inputContainer:focus,
+select:hover,
+select:focus,
+input:hover,
+input:focus {
+  background-color: rgb(43, 75, 110);
+  border-bottom-color: #dcdcdc;
+  border-radius: 8px;
+  outline: none;
+}
+
+.input {
+  padding: 1em;
+}
+
+.iconContainer {
+  display: flex;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 1em;
+  pointer-events: none;
+}
+
+select {
+  /* removing default appearance */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  color: white;
+}
+
+input {
+  -webkit-appearance: textfield;
+  -moz-appearance: textfield;
+  appearance: textfield;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-color: transparent;
+  border: none;
+  color: white;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
