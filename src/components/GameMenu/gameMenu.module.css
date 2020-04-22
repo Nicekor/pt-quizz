@@ -1,0 +1,13 @@
+.gameMenu {
+  background-color: rgb(17, 23, 29);
+  margin: 0 8em;
+  border-radius: 1em;
+  padding: 1em 0;
+}
+
+.line {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 1em;
+}
