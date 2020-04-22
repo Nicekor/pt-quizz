@@ -1,5 +1,7 @@
 body {
   margin: 0;
+  padding: 0;
+  border: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
@@ -8,6 +10,19 @@ body {
   background-color: #15202B;
   color: white;
   font-size: 0.8em;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  margin: 0 8em;
+  min-height: 100vh;
+}
+
+@media screen and (max-width: 425px) {
+  #root {
+    margin: 0;
+  }
 }
 
 code {
