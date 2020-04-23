@@ -1,0 +1,25 @@
+.btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1em;
+  border-radius: 8px;
+  color: white;
+  background-color: rgb(32, 52, 73);
+  border: none;
+  border-bottom: 2px solid rgb(51, 114, 231);
+  cursor: pointer;
+}
+
+.btn:hover {
+  border-bottom: 2px solid #dcdcdc;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:active {
+  background-color: rgb(16, 42, 70);
+  border-bottom-color: rgb(16, 42, 70);
+}
