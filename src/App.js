@@ -1,13 +1,13 @@
 import React from 'react';
 
 import Header from './components/Header/Header';
-import GameMenu from './components/GameMenu/GameMenu';
+import GameManager from './components/GameManager/GameManager';
 
 function App() {
   return (
     <>
       <Header />
-      <GameMenu />
+      <GameManager />
     </>
   );
 }

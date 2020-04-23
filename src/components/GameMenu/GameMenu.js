@@ -1,87 +1,129 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 import Spinner from '../UI/Spinner/Spinner';
 import Input from '../UI/Input/Input';
+import Button from '../UI/Button/Button';
 
 import classes from './gameMenu.module.css';
 
-const GameMenu = () => {
-  const [error, setError] = useState(null);
-  const [token, setToken] = useState('');
-  const [isTokenLoaded, setIsTokenLoaded] = useState(false);
-  const [categories, setCategories] = useState([]);
-  const [areCategoriesLoaded, setAreCategoriesLoaded] = useState(false);
-  const [difficulties, setDifficulties] = useState(['Easy', 'Medium', 'Hard']); // these values are hardcoded because the api doesn't provide these
-  const [type, setType] = useState(['multiple', 'boolean']); // hardcoded for the same reason as the difficulties
-
-  const getCategories = useCallback(async () => {
-    try {
-      const res = await fetch('https://opentdb.com/api_category.php');
-      const { trivia_categories } = await res.json();
-      setCategories(trivia_categories);
-      setAreCategoriesLoaded(true);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setAreCategoriesLoaded(true);
-    }
-  }, []);
-
-  const getToken = useCallback(async () => {
-    try {
-      const res = await fetch(
-        'https://opentdb.com/api_token.php?command=request'
-      );
-      const { token } = await res.json();
-      setToken(token);
-    } catch (err) {
-      setError(err);
-    } finally {
-      setIsTokenLoaded(true);
-    }
-  }, []);
+const GameMenu = ({
+  onGameStarted,
+  token,
+  error,
+  categories,
+  difficulties,
+  questionsTypes,
+}) => {
+  const [category, setCategory] = useState('');
+  const [difficulty, setDifficulty] = useState('');
+  const [numQuestions, setNumQuestions] = useState('10');
+  const [questionsType, setQuestionsType] = useState('');
 
   useEffect(() => {
-    getCategories();
-    getToken();
-  }, [getCategories, getToken]);
+    setCategory(categories[0].id);
+  }, [categories]);
 
-  const handleSubmit = () => {};
+  const changeCategory = ({ target: { value } }) => {
+    setCategory(value);
+  };
+
+  const changeDifficulty = ({ target: { value } }) => {
+    setDifficulty(value);
+  };
+
+  const changeNumQuestions = ({ target: { value } }) => {
+    setNumQuestions(value);
+  };
+
+  const changeQuestionsType = ({ target: { value } }) => {
+    setQuestionsType(value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onGameStarted({
+      category,
+      difficulty,
+      numQuestions,
+      questionsType,
+    });
+  };
 
   if (error) {
     return <div>Error: {error.message}</div>;
-  } else if (!areCategoriesLoaded || !isTokenLoaded) {
-    return <Spinner />;
-  } else {
-    const categoryOptions = categories.map((category) => {
-      return <option key={category.id}>{category.name}</option>;
-    });
-    const difficultiesOptions = difficulties.map((difficulty, i) => {
-      return <option key={i}>{difficulty}</option>;
-    });
-
-    return (
-      <form onSubmit={handleSubmit} className={classes.gameMenu}>
-        <div className={classes.line}>
-          <Input labelName="Category:" Component="select" icon={faArrowDown}>
-            {categoryOptions}
-          </Input>
-          <Input labelName="Difficulty:" Component="select" icon={faArrowDown}>
-            {difficultiesOptions}
-          </Input>
-        </div>
-        <div className={classes.line}>
-          <Input
-            type="number"
-            labelName="Number of Questions:"
-            min="10"
-            max="100"
-          />
-        </div>
-      </form>
-    );
   }
+  if (!token || !categories.length) {
+    return <Spinner />;
+  }
+  const categoryOptions = categories.map(({ id, name }) => {
+    return (
+      <option key={id} value={id}>
+        {name}
+      </option>
+    );
+  });
+  const difficultiesOptions = difficulties.map(({ title, value }) => {
+    return (
+      <option key={value} value={value}>
+        {title}
+      </option>
+    );
+  });
+  const questionsTypeOptions = questionsTypes.map(({ title, value }) => {
+    return (
+      <option key={value} value={value}>
+        {title}
+      </option>
+    );
+  });
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className={classes.row}>
+        <Input
+          labelName="Category:"
+          Component="select"
+          icon={faArrowDown}
+          onChange={changeCategory}
+          value={category}
+        >
+          {categoryOptions}
+        </Input>
+        <Input
+          labelName="Difficulty:"
+          Component="select"
+          icon={faArrowDown}
+          onChange={changeDifficulty}
+          value={difficulty}
+        >
+          {difficultiesOptions}
+        </Input>
+      </div>
+      <div className={classes.row}>
+        <Input
+          type="number"
+          labelName="Number of Questions:"
+          min="10"
+          max="100"
+          onChange={changeNumQuestions}
+          value={numQuestions}
+        />
+        <Input
+          labelName="Type of Questions:"
+          Component="select"
+          icon={faArrowDown}
+          onChange={changeQuestionsType}
+          value={questionsType}
+        >
+          {questionsTypeOptions}
+        </Input>
+      </div>
+      <Button type="submit" style={{ margin: '0 auto' }}>
+        Start Game
+      </Button>
+    </form>
+  );
 };
 
 export default GameMenu;
