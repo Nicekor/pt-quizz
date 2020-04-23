@@ -1,0 +1,15 @@
+.question {
+  text-align: center;
+}
+
+.answersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+}
+
+.answerBtn {
+  width: calc(50% - 1em);
+  margin: 0.5em;
+  text-align: center;
+}
