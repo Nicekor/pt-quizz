@@ -1,6 +1,5 @@
 .gameMenu {
   background-color: rgb(17, 23, 29);
-  margin: 0 8em;
   border-radius: 1em;
   padding: 1em 0;
 }
@@ -10,4 +9,15 @@
   justify-content: space-evenly;
   align-items: center;
   margin-bottom: 1em;
+}
+
+@media screen and (max-width: 425px) {
+  .line {
+    flex-direction: column;
+    margin-bottom: 0;
+  }
+
+  .gameMenu {
+    margin: 0 1em;
+  }
 }
