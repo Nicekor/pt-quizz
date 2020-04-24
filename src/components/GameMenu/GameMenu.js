@@ -77,7 +77,6 @@ const GameMenu = ({
       </option>
     );
   });
-
   return (
     <form onSubmit={handleSubmit}>
       <div className={classes.row}>
@@ -119,7 +118,7 @@ const GameMenu = ({
           {questionsTypeOptions}
         </Input>
       </div>
-      <Button type="submit" style={{ margin: '0 auto' }}>
+      <Button type="submit" centered>
         Start Game
       </Button>
     </form>

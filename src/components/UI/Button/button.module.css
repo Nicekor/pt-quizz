@@ -23,3 +23,7 @@
   background-color: rgb(16, 42, 70);
   border-bottom-color: rgb(16, 42, 70);
 }
+
+.centered {
+  margin: 0 auto;
+}
