@@ -1,5 +1,7 @@
 .question {
   text-align: center;
+  padding: 0 1em;
+  font-weight: normal;
 }
 
 .answersContainer {
@@ -12,4 +14,40 @@
   width: calc(50% - 1em);
   margin: 0.5em;
   text-align: center;
+}
+
+.answer {
+  animation: blinker 1.5s ease-in-out;
+  border-bottom: none;
+}
+
+.answer:hover {
+  border: none;
+}
+
+.correctAnswer,
+.correctAnswer:active {
+  background-color: green;
+}
+
+.incorrectAnswer,
+.incorrectAnswer:active {
+  background-color: red;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
+
+.nextPageBtn {
+  padding-left: 3em;
+  padding-right: 3em;
+}
+
+.expandable {
+  overflow: hidden;
+  transition: all 0.5s ease-in-out;
+  height: 0;
 }
