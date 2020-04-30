@@ -10,37 +10,6 @@
   padding: 1em;
 }
 
-.answerBtn {
-  width: calc(50% - 1em);
-  margin: 0.5em;
-  text-align: center;
-}
-
-.answer {
-  animation: blinker 1.5s ease-in-out;
-  border-bottom: none;
-}
-
-.answer:hover {
-  border: none;
-}
-
-.correctAnswer,
-.correctAnswer:active {
-  background-color: green;
-}
-
-.incorrectAnswer,
-.incorrectAnswer:active {
-  background-color: red;
-}
-
-@keyframes blinker {
-  50% {
-    opacity: 0;
-  }
-}
-
 .nextPageBtn {
   padding-left: 3em;
   padding-right: 3em;

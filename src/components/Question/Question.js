@@ -2,10 +2,11 @@ import React, { useEffect, useCallback, useState } from 'react';
 
 import Spinner from '../UI/Spinner/Spinner';
 import Button from '../UI/Button/Button';
+import Answer from '../Answer/Answer';
 
 import classes from './question.module.css';
-const PRELOAD_NUMBER = 10;
 
+const PRELOAD_NUMBER = 10;
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 const parseHTMLEncoding = (str) =>
   new DOMParser().parseFromString(str, 'text/html').body.textContent;
@@ -69,24 +70,6 @@ const Question = ({
     }
   };
 
-  const getAnswerClassName = (answer) => {
-    const { correct_answer } = questions[currentQuestion];
-    const answerSelected = answer === chosenAnswer;
-    const showCorrectAnswer = correct_answer === answer && chosenAnswer;
-
-    const answerChosenClass =
-      answerSelected || showCorrectAnswer ? classes.answer : '';
-    const correctAnswerClass = showCorrectAnswer ? classes.correctAnswer : '';
-    const incorrectAnswerClass =
-      answerSelected && !showCorrectAnswer ? classes.incorrectAnswer : '';
-    return [
-      classes.answerBtn,
-      answerChosenClass,
-      correctAnswerClass,
-      incorrectAnswerClass,
-    ].join(' ');
-  };
-
   const nextQuestionHandler = () => {
     setCurrentQuestion(currentQuestion + 1);
     setChosenAnswer('');
@@ -97,23 +80,21 @@ const Question = ({
   };
 
   if (!areQuestionsLoaded) return <Spinner />;
+
+  const { question } = questions[currentQuestion];
   return (
     <>
-      <h2 className={classes.question}>
-        {questions[currentQuestion]?.question}
-      </h2>
+      <h2 className={classes.question}>{question}</h2>
       <div className={classes.answersContainer}>
-        {questions[currentQuestion]?.answers.map((answer) => {
-          return (
-            <Button
-              className={getAnswerClassName(answer)}
-              key={answer}
-              onClick={() => answerHandler(answer)}
-            >
-              {answer}
-            </Button>
-          );
-        })}
+        {questions[currentQuestion]?.answers.map((answer) => (
+          <Answer
+            key={answer}
+            answer={answer}
+            answerHandler={answerHandler}
+            chosenAnswer={chosenAnswer}
+            correctAnswer={questions[currentQuestion]?.correct_answer}
+          />
+        ))}
       </div>
       <div
         className={classes.expandable}
