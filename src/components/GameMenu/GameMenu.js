@@ -45,7 +45,7 @@ const GameMenu = ({
     onGameStarted({
       category,
       difficulty,
-      numQuestions,
+      numQuestions: parseInt(numQuestions),
       questionsType,
     });
   };
