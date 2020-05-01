@@ -1,6 +1,9 @@
 import React, { useState, useCallback, useEffect } from 'react';
+
 import Question from '../Question/Question';
 import GameMenu from '../GameMenu/GameMenu';
+import FinalScreen from '../FinalScreen/FinalScreen';
+
 import classes from './gameManager.module.css';
 
 const anyCategoryOption = { name: 'Any Category', id: '' };
@@ -21,6 +24,8 @@ const GameManager = () => {
   const [gameOptions, setGameOptions] = useState({});
   const [token, setToken] = useState('');
   const [error, setError] = useState(false);
+  const [isGameOver, setIsGameOver] = useState(false);
+  const [score, setScore] = useState(0);
 
   const getToken = useCallback(async () => {
     try {
@@ -54,9 +59,19 @@ const GameManager = () => {
     setGameOptions(gameOptions);
   };
 
+  const onCorrectAnswer = useCallback(() => setScore((score) => score + 1), []);
+
+  if (isGameOver) return <FinalScreen score={score} />;
   return (
     <div className={classes.gameContainer}>
-      {gameStarted && <Question {...gameOptions} token={token} />}
+      {gameStarted && (
+        <Question
+          {...gameOptions}
+          token={token}
+          onGameOver={() => setIsGameOver(true)}
+          onCorrectAnswer={onCorrectAnswer}
+        />
+      )}
       {!gameStarted && (
         <GameMenu
           onGameStarted={onGameStartedHandler}
