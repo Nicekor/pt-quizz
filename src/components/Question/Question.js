@@ -31,12 +31,20 @@ const Question = ({
   difficulty,
   questionsType,
   token,
+  onGameOver,
+  onCorrectAnswer,
 }) => {
   const [questions, setQuestions] = useState([]);
-  const [currentQuestion, setCurrentQuestion] = useState(0);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [areQuestionsLoaded, setAreQuestionsLoaded] = useState(false);
   const [chosenAnswer, setChosenAnswer] = useState('');
   const [showNextPageBtn, setShowNextPageBtn] = useState(false);
+  const [nextPageBtnText, setNextPageBtnText] = useState('Next');
+
+  const questionProps = questions[currentQuestionIndex];
+  const correctAnswer = questionProps?.correct_answer;
+  const question = questionProps?.question;
+  const answers = questionProps?.answers || [];
 
   const loadQuestions = useCallback(
     async (questionsAmount) => {
@@ -61,7 +69,27 @@ const Question = ({
     loadQuestions(Math.min(numQuestions, PRELOAD_NUMBER));
   }, [loadQuestions, numQuestions]);
 
-  const answerHandler = (selectedAnswer) => {
+  // last question
+  useEffect(() => {
+    if (currentQuestionIndex + 1 === numQuestions) {
+      setNextPageBtnText('Finish');
+    }
+  }, [currentQuestionIndex, numQuestions]);
+
+  // render game over screen
+  useEffect(() => {
+    if (currentQuestionIndex === numQuestions) {
+      onGameOver();
+    }
+  }, [chosenAnswer, currentQuestionIndex, numQuestions, onGameOver]);
+
+  useEffect(() => {
+    if (correctAnswer === chosenAnswer) {
+      onCorrectAnswer();
+    }
+  }, [chosenAnswer, correctAnswer, onCorrectAnswer]);
+
+  const onAnswerChosen = (selectedAnswer) => {
     if (!chosenAnswer) {
       setChosenAnswer(selectedAnswer);
       setTimeout(() => {
@@ -71,9 +99,9 @@ const Question = ({
   };
 
   const nextQuestionHandler = () => {
-    setCurrentQuestion(currentQuestion + 1);
+    setCurrentQuestionIndex(currentQuestionIndex + 1);
     setChosenAnswer('');
-    if (currentQuestion + 1 < numQuestions - PRELOAD_NUMBER) {
+    if (currentQuestionIndex + 1 < numQuestions - PRELOAD_NUMBER) {
       loadQuestions(1);
     }
     setShowNextPageBtn(false);
@@ -81,18 +109,19 @@ const Question = ({
 
   if (!areQuestionsLoaded) return <Spinner />;
 
-  const { question } = questions[currentQuestion];
   return (
     <>
-      <h2 className={classes.question}>{question}</h2>
+      <h2 className={classes.question}>
+        {currentQuestionIndex + 1}. {question}
+      </h2>
       <div className={classes.answersContainer}>
-        {questions[currentQuestion]?.answers.map((answer) => (
+        {answers.map((answer) => (
           <Answer
             key={answer}
             answer={answer}
-            answerHandler={answerHandler}
+            onAnswerChosen={onAnswerChosen}
             chosenAnswer={chosenAnswer}
-            correctAnswer={questions[currentQuestion]?.correct_answer}
+            correctAnswer={correctAnswer}
           />
         ))}
       </div>
@@ -106,7 +135,7 @@ const Question = ({
           onClick={nextQuestionHandler}
           disabled={!showNextPageBtn}
         >
-          Next
+          {nextPageBtnText}
         </Button>
       </div>
     </>

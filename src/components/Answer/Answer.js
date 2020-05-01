@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 
 import Button from '../UI/Button/Button';
 
@@ -8,10 +8,10 @@ const Answer = ({
   answer,
   correctAnswer,
   chosenAnswer,
-  answerHandler,
+  onAnswerChosen,
   ...props
 }) => {
-  const getAnswerClassName = useCallback(() => {
+  const getAnswerClassName = () => {
     const answerSelected = answer === chosenAnswer;
     const showCorrectAnswer = correctAnswer === answer && chosenAnswer;
 
@@ -26,12 +26,12 @@ const Answer = ({
       correctAnswerClass,
       incorrectAnswerClass,
     ].join(' ');
-  }, [answer, chosenAnswer, correctAnswer]);
+  };
 
   return (
     <Button
       className={getAnswerClassName(answer)}
-      onClick={() => answerHandler(answer)}
+      onClick={() => onAnswerChosen(answer)}
       {...props}
     >
       {answer}
