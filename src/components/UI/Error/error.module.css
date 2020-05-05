@@ -1,0 +1,48 @@
+.errorContainer {
+  display: flex;
+  align-items: center;
+  background-color: firebrick;
+  border-radius: 1em;
+  width: fit-content;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+p {
+  font-size: large;
+  color: lightsalmon;
+}
+
+.emoji {
+  padding-left: 0.2em;
+}
+
+.messageContainer {
+  padding: 1em;
+}
+
+.icon {
+  padding: 0 0.5em;
+}
+
+@media screen and (max-width: 425px) {
+  .errorContainer {
+    flex-direction: column;
+    margin-right: 1em;
+  }
+
+  .icon {
+    padding: 0.2em 0;
+  }
+
+  .messageContainer {
+    padding: 0;
+    text-align: center;
+  }
+
+  p {
+    margin-top: 0;
+  }
+}
