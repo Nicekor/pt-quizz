@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
-import Spinner from '../UI/Spinner/Spinner';
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 
@@ -9,8 +8,6 @@ import classes from './gameMenu.module.css';
 
 const GameMenu = ({
   onGameStarted,
-  token,
-  error,
   categories,
   difficulties,
   questionsTypes,
@@ -50,12 +47,6 @@ const GameMenu = ({
     });
   };
 
-  if (error) {
-    return <div>Error: {error.message}</div>;
-  }
-  if (!token || !categories.length) {
-    return <Spinner />;
-  }
   const categoryOptions = categories.map(({ id, name }) => {
     return (
       <option key={id} value={id}>

@@ -3,12 +3,15 @@ import React, { useState, useCallback, useEffect } from 'react';
 import Question from '../Question/Question';
 import GameMenu from '../GameMenu/GameMenu';
 import FinalScreen from '../FinalScreen/FinalScreen';
+import Error from '../UI/Error/Error';
+import Spinner from '../UI/Spinner/Spinner';
 
 import classes from './gameManager.module.css';
 
 const anyCategoryOption = { name: 'Any Category', id: '' };
 const GameManager = () => {
   const [categories, setCategories] = useState([anyCategoryOption]);
+  const [categoriesLoading, setCategoriesLoading] = useState(true);
   const difficulties = [
     { title: 'Any Difficulty', value: '' },
     { title: 'Easy', value: 'easy' },
@@ -23,8 +26,10 @@ const GameManager = () => {
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOptions, setGameOptions] = useState({});
   const [token, setToken] = useState('');
-  const [error, setError] = useState(false);
+  const [tokenLoading, setTokenLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [isGameOver, setIsGameOver] = useState(false);
+  const [fadeOutClass, setFadeOutClass] = useState(null);
   const [score, setScore] = useState(0);
 
   const getToken = useCallback(async () => {
@@ -37,6 +42,7 @@ const GameManager = () => {
     } catch (err) {
       setError(err);
     }
+    setTokenLoading(false);
   }, []);
 
   const getCategories = useCallback(async () => {
@@ -47,6 +53,7 @@ const GameManager = () => {
     } catch (err) {
       setError(err);
     }
+    setCategoriesLoading(false);
   }, []);
 
   useEffect(() => {
@@ -61,14 +68,23 @@ const GameManager = () => {
 
   const onCorrectAnswer = useCallback(() => setScore((score) => score + 1), []);
 
+  const onGameOver = () => {
+    setFadeOutClass(classes.fadeOut);
+    setTimeout(() => {
+      setIsGameOver(true);
+    }, 2100); //todo: this delay depends on the fadeOut animation duration, find a better way to do this
+  };
+
+  if (categoriesLoading || tokenLoading) return <Spinner />;
+  if (error) return <Error err={error} />;
   if (isGameOver) return <FinalScreen score={score} />;
   return (
-    <div className={classes.gameContainer}>
+    <div className={[classes.gameContainer, fadeOutClass].join(' ')}>
       {gameStarted && (
         <Question
           {...gameOptions}
           token={token}
-          onGameOver={() => setIsGameOver(true)}
+          onGameOver={onGameOver}
           onCorrectAnswer={onCorrectAnswer}
         />
       )}
@@ -78,8 +94,6 @@ const GameManager = () => {
           categories={categories}
           difficulties={difficulties}
           questionsTypes={questionsTypes}
-          token={token}
-          error={error}
         />
       )}
     </div>

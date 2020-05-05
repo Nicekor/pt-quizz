@@ -3,6 +3,7 @@ import React, { useEffect, useCallback, useState } from 'react';
 import Spinner from '../UI/Spinner/Spinner';
 import Button from '../UI/Button/Button';
 import Answer from '../Answer/Answer';
+import Error from '../UI/Error/Error';
 
 import classes from './question.module.css';
 
@@ -36,10 +37,11 @@ const Question = ({
 }) => {
   const [questions, setQuestions] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [areQuestionsLoaded, setAreQuestionsLoaded] = useState(false);
+  const [isQuestionLoading, setIsQuestionLoading] = useState(false);
   const [chosenAnswer, setChosenAnswer] = useState('');
   const [showNextPageBtn, setShowNextPageBtn] = useState(false);
-  const [nextPageBtnText, setNextPageBtnText] = useState('Next');
+  const [isLastQuestion, setIsLastQuestion] = useState(false);
+  const [error, setError] = useState(null);
 
   const questionProps = questions[currentQuestionIndex];
   const correctAnswer = questionProps?.correct_answer;
@@ -49,6 +51,7 @@ const Question = ({
   const loadQuestions = useCallback(
     async (questionsAmount) => {
       try {
+        setIsQuestionLoading(true);
         const res = await fetch(
           `https://opentdb.com/api.php?amount=${questionsAmount}&category=${category}&difficulty=${difficulty}&type=${questionsType}&token=${token}`
         );
@@ -58,9 +61,9 @@ const Question = ({
           ...getFormattedQuestions(results),
         ]);
       } catch (err) {
-        console.error(err);
+        setError(err);
       }
-      setAreQuestionsLoaded(true);
+      setIsQuestionLoading(false);
     },
     [category, difficulty, questionsType, token]
   );
@@ -72,16 +75,16 @@ const Question = ({
   // last question
   useEffect(() => {
     if (currentQuestionIndex + 1 === numQuestions) {
-      setNextPageBtnText('Finish');
+      setIsLastQuestion(true);
     }
   }, [currentQuestionIndex, numQuestions]);
 
   // render game over screen
-  useEffect(() => {
-    if (currentQuestionIndex === numQuestions) {
-      onGameOver();
-    }
-  }, [chosenAnswer, currentQuestionIndex, numQuestions, onGameOver]);
+  // useEffect(() => {
+  //   if (currentQuestionIndex === numQuestions) {
+  //     onGameOver();
+  //   }
+  // }, [chosenAnswer, currentQuestionIndex, numQuestions, onGameOver]);
 
   useEffect(() => {
     if (correctAnswer === chosenAnswer) {
@@ -106,9 +109,9 @@ const Question = ({
     }
     setShowNextPageBtn(false);
   };
-
-  if (!areQuestionsLoaded) return <Spinner />;
-
+  
+  if (isQuestionLoading) return <Spinner />;
+  if (error) return <Error err={error} />;
   return (
     <>
       <h2 className={classes.question}>
@@ -132,10 +135,10 @@ const Question = ({
         <Button
           centered
           className={classes.nextPageBtn}
-          onClick={nextQuestionHandler}
+          onClick={isLastQuestion ? onGameOver : nextQuestionHandler}
           disabled={!showNextPageBtn}
         >
-          {nextPageBtnText}
+          {isLastQuestion ? 'Finish' : 'Next'}
         </Button>
       </div>
     </>

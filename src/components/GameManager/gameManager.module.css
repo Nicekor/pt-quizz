@@ -3,3 +3,26 @@
   border-radius: 1em;
   padding: 1em 0;
 }
+
+.fadeOut {
+  animation: fadeOut 2s linear both;
+  -webkit-animation: fadeOut 2s linear both;
+}
+
+@-webkit-keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
