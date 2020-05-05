@@ -19,7 +19,7 @@ body {
   min-height: 100vh;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 768px) {
   #root {
     margin: 0;
   }
