@@ -5,8 +5,8 @@
 }
 
 .fadeOut {
-  animation: fadeOut 2s linear both;
-  -webkit-animation: fadeOut 2s linear both;
+  animation: fadeOut 1s linear both;
+  -webkit-animation: fadeOut 1s linear both;
 }
 
 @-webkit-keyframes fadeOut {

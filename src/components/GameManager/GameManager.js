@@ -72,7 +72,7 @@ const GameManager = () => {
     setFadeOutClass(classes.fadeOut);
     setTimeout(() => {
       setIsGameOver(true);
-    }, 2100); //todo: this delay depends on the fadeOut animation duration, find a better way to do this
+    }, 1100); //todo: this delay depends on the fadeOut animation duration, find a better way to do this
   };
 
   if (categoriesLoading || tokenLoading) return <Spinner />;
