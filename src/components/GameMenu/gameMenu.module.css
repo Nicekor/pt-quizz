@@ -5,7 +5,7 @@
   margin-bottom: 1em;
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 768px) {
   .row {
     flex-direction: column;
     margin-bottom: 0;
