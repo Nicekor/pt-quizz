@@ -1,0 +1,62 @@
+{
+  "logoAlt": {
+    "en": "Megaphone logo",
+    "pt": "Megafone logo"
+  },
+  "flagAlt": {
+    "en": "United Kingdom Flag",
+    "pt": "Bandeira de Portugal"
+  },
+  "anyDifficulty": {
+    "en": "Any Difficulty",
+    "pt": "Qualquer dificuldade"
+  },
+  "easy": {
+    "en": "Easy",
+    "pt": "Fácil"
+  },
+  "medium": {
+    "en": "Medium",
+    "pt": "Médio"
+  },
+  "hard": {
+    "en": "Hard",
+    "pt": "Difícil"
+  },
+  "anyType": {
+    "en": "Any Type",
+    "pt": "Qualquer Tipo"
+  },
+  "multipleChoice": {
+    "en": "Multiple Choice",
+    "pt": "Escolha Múltipla"
+  },
+  "true": {
+    "en": "True",
+    "pt": "Verdadeiro"
+  },
+  "false": {
+    "en": "False",
+    "pt": "Falso"
+  },
+  "category": {
+    "en": "Category",
+    "pt": "Categoria"
+  },
+  "difficulty": {
+    "en": "Difficulty",
+    "pt": "Dificuldade"
+  },
+  "questionsNumber": {
+    "en": "Number of questions",
+    "pt": "Número de perguntas"
+  },
+  "questionsType": {
+    "en": "Type of Questions",
+    "pt": "Tipo de Perguntas"
+  },
+  "startGame": {
+    "en": "Start Game",
+    "pt": "Começar"
+  }
+}

@@ -1,10 +1,26 @@
 .headerContainer {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .logo {
-    width: 10em;
-    padding: 1em;
-    margin-right: 4em;
+  width: 10em;
+  padding: 1em;
+  margin-right: 4em;
+}
+
+.logoAnchor {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.flag {
+  width: 4em;
+  height: 2em;
+  margin: 1em;
+  border-radius: 2em;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }

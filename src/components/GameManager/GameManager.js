@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from 'react';
+import React, { useState, useCallback, useEffect, useContext } from 'react';
 
 import Question from '../Question/Question';
 import GameMenu from '../GameMenu/GameMenu';
@@ -6,22 +6,29 @@ import FinalScreen from '../FinalScreen/FinalScreen';
 import Error from '../UI/Error/Error';
 import Spinner from '../UI/Spinner/Spinner';
 
+import uiLabel from '../../assets/uiLabel.json';
 import classes from './gameManager.module.css';
+import { LanguageContext } from '../../context/LanguageContext';
 
 const anyCategoryOption = { name: 'Any Category', id: '' };
 const GameManager = () => {
+  const { language } = useContext(LanguageContext);
+
   const [categories, setCategories] = useState([anyCategoryOption]);
   const [categoriesLoading, setCategoriesLoading] = useState(true);
   const difficulties = [
-    { title: 'Any Difficulty', value: '' },
-    { title: 'Easy', value: 'easy' },
-    { title: 'Medium', value: 'medium' },
-    { title: 'Hard', value: 'hard' },
+    { title: uiLabel.anyDifficulty[language], value: '' },
+    { title: uiLabel.easy[language], value: 'easy' },
+    { title: uiLabel.medium[language], value: 'medium' },
+    { title: uiLabel.hard[language], value: 'hard' },
   ]; // these values are hardcoded because the api doesn't provide these
   const questionsTypes = [
-    { title: 'Any Type', value: '' },
-    { title: 'Multiple Choice', value: 'multiple' },
-    { title: 'True/False', value: 'boolean' },
+    { title: uiLabel.anyType[language], value: '' },
+    { title: uiLabel.multipleChoice[language], value: 'multiple' },
+    {
+      title: `${uiLabel.true[language]}/${uiLabel.false[language]}`,
+      value: 'boolean',
+    },
   ]; // hardcoded for the same reason as the difficulties
   const [gameStarted, setGameStarted] = useState(false);
   const [gameOptions, setGameOptions] = useState({});

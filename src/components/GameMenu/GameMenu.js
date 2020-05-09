@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { faArrowDown } from '@fortawesome/free-solid-svg-icons';
 
 import Input from '../UI/Input/Input';
 import Button from '../UI/Button/Button';
 
 import classes from './gameMenu.module.css';
+import { LanguageContext } from '../../context/LanguageContext';
+import uiLabel from '../../assets/uiLabel.json';
 
 const GameMenu = ({
   onGameStarted,
@@ -12,6 +14,8 @@ const GameMenu = ({
   difficulties,
   questionsTypes,
 }) => {
+  const { language } = useContext(LanguageContext);
+
   const [category, setCategory] = useState('');
   const [difficulty, setDifficulty] = useState('');
   const [numQuestions, setNumQuestions] = useState('10');
@@ -72,7 +76,7 @@ const GameMenu = ({
     <form onSubmit={handleSubmit}>
       <div className={classes.row}>
         <Input
-          labelName="Category:"
+          labelName={`${uiLabel.category[language]}:`}
           Component="select"
           icon={faArrowDown}
           onChange={changeCategory}
@@ -81,7 +85,7 @@ const GameMenu = ({
           {categoryOptions}
         </Input>
         <Input
-          labelName="Difficulty:"
+          labelName={`${uiLabel.difficulty[language]}:`}
           Component="select"
           icon={faArrowDown}
           onChange={changeDifficulty}
@@ -93,14 +97,14 @@ const GameMenu = ({
       <div className={classes.row}>
         <Input
           type="number"
-          labelName="Number of Questions:"
+          labelName={`${uiLabel.questionsNumber[language]}:`}
           min="10"
           max="100"
           onChange={changeNumQuestions}
           value={numQuestions}
         />
         <Input
-          labelName="Type of Questions:"
+          labelName={`${uiLabel.questionsType[language]}:`}
           Component="select"
           icon={faArrowDown}
           onChange={changeQuestionsType}
@@ -110,7 +114,7 @@ const GameMenu = ({
         </Input>
       </div>
       <Button type="submit" centered>
-        Start Game
+        {uiLabel.startGame[language]}
       </Button>
     </form>
   );
