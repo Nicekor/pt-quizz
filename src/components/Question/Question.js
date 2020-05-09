@@ -7,7 +7,7 @@ import Error from '../UI/Error/Error';
 
 import classes from './question.module.css';
 
-const PRELOAD_NUMBER = 10;
+const MAX_QUESTIONS_PER_REQUEST = 50;
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 const parseHTMLEncoding = (str) =>
   new DOMParser().parseFromString(str, 'text/html').body.textContent;
@@ -43,6 +43,7 @@ const Question = ({
   const [isLastQuestion, setIsLastQuestion] = useState(false);
   const [error, setError] = useState(null);
 
+  const currentQuestionNum = currentQuestionIndex + 1;
   const questionProps = questions[currentQuestionIndex];
   const correctAnswer = questionProps?.correct_answer;
   const question = questionProps?.question;
@@ -69,22 +70,19 @@ const Question = ({
   );
 
   useEffect(() => {
-    loadQuestions(Math.min(numQuestions, PRELOAD_NUMBER));
-  }, [loadQuestions, numQuestions]);
+    if (currentQuestionIndex % MAX_QUESTIONS_PER_REQUEST === 0) {
+      loadQuestions(
+        Math.min(numQuestions - currentQuestionIndex, MAX_QUESTIONS_PER_REQUEST)
+      );
+    }
+  }, [currentQuestionIndex, loadQuestions, numQuestions]);
 
   // last question
   useEffect(() => {
-    if (currentQuestionIndex + 1 === numQuestions) {
+    if (currentQuestionNum === numQuestions) {
       setIsLastQuestion(true);
     }
-  }, [currentQuestionIndex, numQuestions]);
-
-  // render game over screen
-  // useEffect(() => {
-  //   if (currentQuestionIndex === numQuestions) {
-  //     onGameOver();
-  //   }
-  // }, [chosenAnswer, currentQuestionIndex, numQuestions, onGameOver]);
+  }, [currentQuestionNum, numQuestions]);
 
   useEffect(() => {
     if (correctAnswer === chosenAnswer) {
@@ -102,20 +100,17 @@ const Question = ({
   };
 
   const nextQuestionHandler = () => {
-    setCurrentQuestionIndex(currentQuestionIndex + 1);
+    setCurrentQuestionIndex(currentQuestionNum);
     setChosenAnswer('');
-    if (currentQuestionIndex + 1 < numQuestions - PRELOAD_NUMBER) {
-      loadQuestions(1);
-    }
     setShowNextPageBtn(false);
   };
-  
+
   if (isQuestionLoading) return <Spinner />;
   if (error) return <Error err={error} />;
   return (
     <>
       <h2 className={classes.question}>
-        {currentQuestionIndex + 1}. {question}
+        {currentQuestionNum}. {question}
       </h2>
       <div className={classes.answersContainer}>
         {answers.map((answer) => (
