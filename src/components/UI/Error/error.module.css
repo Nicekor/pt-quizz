@@ -10,7 +10,7 @@
   transform: translate(-50%, -50%);
 }
 
-p {
+.messageContainer p {
   font-size: large;
   color: lightsalmon;
 }
@@ -42,7 +42,7 @@ p {
     text-align: center;
   }
 
-  p {
+  .messageContainer p {
     margin-top: 0;
   }
 }
