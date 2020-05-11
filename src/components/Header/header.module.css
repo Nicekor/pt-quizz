@@ -14,10 +14,8 @@
 }
 
 .flag {
-  width: 4em;
-  height: 2em;
+  width: 2em;
   margin: 1em;
-  border-radius: 2em;
   position: absolute;
   top: 0;
   right: 0;

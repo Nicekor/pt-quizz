@@ -6,8 +6,8 @@ import uiLabel from '../../assets/uiLabel.json';
 import { LanguageContext } from '../../context/LanguageContext';
 
 const flagsImages = {
-  en: require('../../assets/images/uk-flag.jpg'),
-  pt: require('../../assets/images/pt-flag.jpg'),
+  en: require('../../assets/images/uk-flag.png'),
+  pt: require('../../assets/images/pt-flag.png'),
 };
 
 const Header = () => {
