@@ -9,6 +9,7 @@
   border: none;
   border-bottom: 2px solid rgb(51, 114, 231);
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .btn:hover {
