@@ -66,5 +66,9 @@
   "playAgain": {
     "en": "Play Again",
     "pt": "Jogar de novo"
+  },
+  "languageWarning": {
+    "en": "For budget and technical reasons some of the app might not have portuguese support, such as the questions and answers, sorry!",
+    "pt": "Por razões técnicas e orçamentais algumas partes da app poderão não ter suporte português, como as perguntas e as respostas, desculpe!"
   }
 }
