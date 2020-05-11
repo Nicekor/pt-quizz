@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState } from 'react';
 
 import Header from './components/Header/Header';
 import GameManager from './components/GameManager/GameManager';
@@ -7,13 +7,9 @@ import { LanguageContext } from './context/LanguageContext';
 function App() {
   const [language, setLanguage] = useState('en');
 
-  const languageProviderValue = useMemo(() => ({ language, setLanguage }), [
-    language,
-  ]);
-
   return (
     <>
-      <LanguageContext.Provider value={languageProviderValue}>
+      <LanguageContext.Provider value={{ language, setLanguage }}>
         <Header />
         <GameManager />
       </LanguageContext.Provider>
