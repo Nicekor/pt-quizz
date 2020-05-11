@@ -58,5 +58,13 @@
   "startGame": {
     "en": "Start Game",
     "pt": "Começar"
+  },
+  "finalScore": {
+    "en": "Final Score",
+    "pt": "Pontuação Final"
+  },
+  "playAgain": {
+    "en": "Play Again",
+    "pt": "Jogar de novo"
   }
 }
