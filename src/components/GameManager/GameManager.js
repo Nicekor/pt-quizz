@@ -82,9 +82,24 @@ const GameManager = () => {
     }, 1100); //todo: this delay depends on the fadeOut animation duration, find a better way to do this
   };
 
+  const onPlayAgain = () => {
+    setGameStarted(false);
+    setIsGameOver(false);
+    setFadeOutClass(null);
+    setScore(0);
+  };
+
   if (categoriesLoading || tokenLoading) return <Spinner />;
   if (error) return <Error err={error} />;
-  if (isGameOver) return <FinalScreen score={score} />;
+  if (isGameOver)
+    return (
+      <FinalScreen
+        score={score}
+        numQuestions={gameOptions.numQuestions}
+        onPlayAgain={onPlayAgain}
+      />
+    );
+
   return (
     <div className={[classes.gameContainer, fadeOutClass].join(' ')}>
       {gameStarted && (

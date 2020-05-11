@@ -4,6 +4,12 @@
   padding: 1em 0;
 }
 
+@media screen and (max-width: 768px) {
+  .gameContainer {
+    margin: 0 1em;
+  }
+}
+
 .fadeOut {
   animation: fadeOut 1s linear both;
   -webkit-animation: fadeOut 1s linear both;
