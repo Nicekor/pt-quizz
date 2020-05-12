@@ -56,7 +56,11 @@ const GameManager = () => {
     try {
       const res = await fetch('https://opentdb.com/api_category.php');
       const { trivia_categories } = await res.json();
-      setCategories([anyCategoryOption, ...trivia_categories]);
+      setCategories(
+        [anyCategoryOption, ...trivia_categories].sort((a, b) =>
+          a.name > b.name ? 1 : -1
+        )
+      );
     } catch (err) {
       setError(err);
     }

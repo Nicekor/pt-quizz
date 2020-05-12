@@ -21,10 +21,6 @@ const GameMenu = ({
   const [numQuestions, setNumQuestions] = useState('10');
   const [questionsType, setQuestionsType] = useState('');
 
-  useEffect(() => {
-    setCategory(categories[0].id);
-  }, [categories]);
-
   const changeCategory = ({ target: { value } }) => {
     setCategory(value);
   };
