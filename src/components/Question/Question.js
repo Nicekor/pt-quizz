@@ -14,14 +14,17 @@ const parseHTMLEncoding = (str) =>
 
 const getFormattedQuestions = (questions) =>
   questions.map(
-    ({ incorrect_answers, correct_answer, question, ...result }) => {
+    ({ incorrect_answers, correct_answer, question, type, ...result }) => {
       return {
         ...result,
         question: parseHTMLEncoding(question),
         correct_answer: parseHTMLEncoding(correct_answer),
-        answers: shuffle([...incorrect_answers, correct_answer]).map(
-          parseHTMLEncoding
-        ),
+        answers: (type === 'boolean'
+          ? [...incorrect_answers, correct_answer].sort((a, b) =>
+              a === 'True' ? -1 : 1
+            )
+          : shuffle([...incorrect_answers, correct_answer])
+        ).map(parseHTMLEncoding),
       };
     }
   );
